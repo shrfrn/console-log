@@ -5,7 +5,7 @@ function log (...args){
 
     args.forEach(arg => {
         if(typeof arg !== 'string') arg = JSON.stringify(arg, null, 2)
-        out += `${arg}`
+        out += `${arg} `
     })
     console.log(out.trim(), log.styles.join(' '))
 
@@ -298,4 +298,4 @@ for (const key in styleMap) {
     })
 }
 
-// log.teal.bgDarkcyan.pad(3).dotted('jgj').pad(3).box(4)
+// log.teal.pad(3).dotted('jgj').pad(3).box(4, 'baba', 'jaja')
