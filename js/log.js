@@ -218,13 +218,6 @@ function _bg(bgcolor) {
     return this
 }
 
-function _color(color) {
-    if(CSS.supports('color', color)) {
-        this.styles.push(`color: ${color};`)
-    }    
-    return this
-}
-
 function _pad(...args) {
     const dir = ['top', 'bottom', 'right', 'left', 'block', 'inline']
 
@@ -268,7 +261,6 @@ log.group = _group
 log.groupEnd = _groupEnd
 log.pad = _pad
 log.font = _font
-log.color = _color
 log.bg = _bg
 log.border = _border
 
