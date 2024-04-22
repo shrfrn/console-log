@@ -181,14 +181,29 @@ const styleMap = {
     box: 'border: 1px solid;',
 }
 
-function _group(label = '', isCollapsed = false) {
+function _group(...args) {
+    var label = ''
+    var isCollapsed = false
+    
+    args.forEach(arg => {
+        if(typeof arg === 'string') label = arg
+        else if(typeof arg === 'boolean') isCollapsed = arg
+    })
+
     if(isCollapsed) console.groupCollapsed(label)
     else console.group(label)
+
+    log.groupNestDepth++
     return log
 }
 
-function _groupEnd() { 
-    console.groupEnd() 
+function _groupEnd(depth = 1) { 
+    if(depth === -1) depth = log.groupNestDepth
+
+    for(var i = 0; i < depth; i++){
+        console.groupEnd()
+        log.groupNestDepth--
+    }
     return log
 }
 
@@ -257,6 +272,8 @@ function _font(...args) {
 }
 
 log.styles = []
+log.groupNestDepth = 0
+
 log.group = _group
 log.groupEnd = _groupEnd
 log.pad = _pad
@@ -289,5 +306,7 @@ for (const key in styleMap) {
         },
     })
 }
-
-// log.teal.pad(3).dotted('jgj').pad(3).box(4, 'baba', 'jaja')
+log.group('Level 1').green('1')
+log.group('Level 2').green('2')
+log.groupEnd().green('1 again')
+log.groupEnd(-1).green('Closed all groups')
