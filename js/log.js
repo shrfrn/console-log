@@ -306,7 +306,10 @@ for (const key in styleMap) {
         },
     })
 }
-log.group('Level 1').green('1')
-log.group('Level 2').green('2')
-log.groupEnd().green('1 again')
-log.groupEnd(-1).green('Closed all groups')
+log.red('This text is red')
+log.bgRed('This text has a red background')
+log.red.bgWhite('Red text over white background')
+
+log.group().green('OK')                     // No label
+log.group('Test results').green('OK')       // Labeled & Expanded
+log.group('Test results', true).green('OK')

@@ -22,6 +22,8 @@ log.red('This text is red')
 log.bgRed('This text has a red background')
 log.red.bgWhite('Red text over white background')
 ```
+![alt text](image-1.png)
+
 All CSS color names are supported. prefix the color name with 'bg' to specify a background color (i.e red => bgRed)
 
 Similarly, use `underline`, `strikethrough`,`italic` or `bold` for more expressive styles
@@ -36,7 +38,7 @@ Every time text is logged to the console, all styling definitions are reset to t
 ```js
 log.red('Red text').blue.bold('Blue bold text')
 ```
-
+![alt text](image-2.png)
 ## Function Properties
 Some styling properties such as padding or borders, take paramenters. You can use **_log_** with function properties to pass such parameters. 
 > Values to all of **_log_**'s function properties can be passed in any order.
@@ -103,9 +105,17 @@ Parameters for the `group()` function:
 |isCollapsed|A boolean. `true` = group is initialy collapsed (optional. Default is `false`)|
 
 ## Utilities
-
+A few additional shorthand formatting properties are provided
 ### Headings
+h1, h2 and h3 format text as headings with a `bold` font weight and font sizes of 20px, 18px and 16px respectively
 ### Box
-
+A shorthand for a `1px solid` border on all sides taking the current text color
 
 ## Under the hood
+
+Functions in JavaScript are objects and like any object, they can have properties.
+Objects in JavaScript can define property _getters_ which are trap functions, activated any time a property is accessed. **_log_** takes advantage of these two mechanisms. 
+
+Basicly, **_log_** is a function which has getter properties. Both **_log_** and its getters, return the **_log_** function itself, thus allowing the chaining syntax. In addition, to provide the parametrized properties, a few functions are added on the **_log_** object which also return **_log_**, again, to permit chaining.
+
+Anytime one of **_log_**'s properties is accessed, it pushes a styling rule into an array which is too, a property of the **_log_** function. When **_log_** is called, it strings together all these styling rules and logs its parameters to to the console with the formatting they prescribe.
